@@ -5,7 +5,15 @@ import cors from "cors";
 
 export const app: Application = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+	cors({
+		origin: [
+			"http://localhost:5173",
+			"https://library-management-system-zhoo-5wl7lknu7.vercel.app",
+		],
+		credentials: true,
+	})
+);
 
 app.use("/api/books", booksRoutes);
 app.use("/api/borrow", borrowRoutes);
