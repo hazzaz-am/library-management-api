@@ -11,6 +11,7 @@ app.use(
 			"http://localhost:5173",
 			"https://library-management-system-zhoo.vercel.app",
 		],
+		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 		credentials: true,
 	})
 );
