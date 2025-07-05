@@ -27,22 +27,32 @@ booksRoutes.post("/", async (req: Request, res: Response) => {
 // get books
 booksRoutes.get("/", async (req: Request, res: Response) => {
 	try {
-		const { filter, sort, limit, sortBy } = req.query;
+		const { filter, sort, limit, sortBy, page } = req.query;
 
 		const query = typeof filter === "string" ? { genre: filter } : {};
 		const sortDirection = sort === "desc" ? -1 : 1;
 		const sortField = typeof sortBy === "string" ? sortBy : "createdAt";
 		const resultLimit = typeof limit === "string" ? parseInt(limit) : 10;
+		const currentPage = typeof page === "string" ? parseInt(page) : 1;
+		const skipCount = (currentPage - 1) * resultLimit;
 
-		// query books
 		const books = await Book.find(query)
 			.sort({ [sortField]: sortDirection })
+			.skip(skipCount)
 			.limit(resultLimit);
+
+		const totalCount = await Book.countDocuments(query);
 
 		res.json({
 			success: true,
 			message: "Books retrieved successfully",
 			data: books,
+			meta: {
+				total: totalCount,
+				page: currentPage,
+				limit: resultLimit,
+				totalPages: Math.ceil(totalCount / resultLimit),
+			},
 		});
 	} catch (error) {
 		res.status(400).json({

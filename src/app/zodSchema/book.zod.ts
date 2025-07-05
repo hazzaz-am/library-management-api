@@ -5,7 +5,7 @@ export const ZBook = z.object({
 	author: z.string(),
 	genre: z.string(),
 	isbn: z.string(),
-	description: z.string().optional(),
+	description: z.string(),
 	copies: z.number(),
 	available: z.boolean().optional(),
 });

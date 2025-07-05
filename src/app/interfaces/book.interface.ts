@@ -9,7 +9,7 @@ export interface IBook {
 		| "BIOGRAPHY"
 		| "FANTASY";
 	isbn: string;
-	description?: string;
+	description: string;
 	copies: number;
 	available?: boolean;
 }

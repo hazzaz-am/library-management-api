@@ -39,6 +39,7 @@ const bookSchema = new Schema<IBook>(
 		description: {
 			type: String,
 			trim: true,
+			required: [true, "Book description is required"],
 		},
 		copies: {
 			type: Number,
