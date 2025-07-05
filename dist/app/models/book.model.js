@@ -38,6 +38,7 @@ const bookSchema = new mongoose_1.Schema({
     description: {
         type: String,
         trim: true,
+        required: [true, "Book description is required"],
     },
     copies: {
         type: Number,
